@@ -3,7 +3,7 @@
 ### **Note:** Currently, only positive numbers are allowed for any type of operations
 <br>
 
-## **USAGE**<hr>
+## <ins>**USAGE**</ins>
 ### This Calculator can be used for :
 * **Base Conversions** (i.e from one base/radix to another)
     * Select the base/radix of the number you're going to convert from.
