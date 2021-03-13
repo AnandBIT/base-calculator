@@ -8,7 +8,8 @@
 * **Base Conversions** (i.e from one base/radix to another)
     * Select the base/radix of the number you're going to convert from.
     * Type the number, then select the base/radix you want your number to convert to.
-    <br>  
+    <br>
+    
     **Hurrah!** 🎉🎉🎉<br> **Your conversion is ready and is served before you.**
     <br><br><br>
 * **Arithmetic operations** with your preferred base
@@ -20,4 +21,5 @@
         * Type in your number and add arithmetic operators in between wherever you like.
         * After you've finished your typing, just press the **=** button.  
         <br>
+
         **Hurrah!** 🎉🎉🎉<br> **Your result is ready and is served before you.**
