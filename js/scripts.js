@@ -2,7 +2,8 @@
 
 const input = document.getElementById("input-box");
 const radioBtn = $("input[type='radio']");
-let prevBtn = $("input[type='radio']:checked").attr("id");
+let prevBtn = $("input[type='radio']:checked").attr("id").split("-")[1];
+let operator;
 
 
 $("#AC").click(() => {
@@ -13,19 +14,29 @@ $("#DEL").click(() => {
     input.textContent = input.textContent.slice(0, -1);
 });
 
-$("#point").click(() => {
-    input.textContent += ".";
+$("#point").click((e) => {
+    input.textContent += e.target.textContent;
+});
+
+$("#calcSum, #calcDiff, #calcPro, #calcDiv").click((e) => {
+    input.textContent += e.target.textContent;
+    operator = e.target.textContent;
+});
+
+$("#equalTo").click(() => {
+    if (input.textContent && operator)
+        calculate(operator);
 });
 
 
 let ar = "#0,#1,#2,#3,#4,#5,#6,#7,#8,#9,#A,#B,#C,#D,#E,#F";
 $(ar).toggleClass("inactive");
 
-let checkedBtn = $("input[type='radio']:checked").attr("id");
+let checkedBtn = $("input[type='radio']:checked").attr("id").split("-")[1];
 activate(checkedBtn);
 
 function activate(checkedBtn) {
-    $(ar).off("click");
+    $(ar).off();
     $(ar).addClass("inactive");
     if (checkedBtn === "2") {
         let buttons = "#0,#1";
@@ -49,25 +60,19 @@ function handleUI(buttons) {
 }
 
 radioBtn.change(function (e) {
-    // console.log(e.target.id);
-    // console.log(this.id);
-    activate(this.id);
-    // let x = anyToDec(input.textContent, this.id);
-
+    let presentBtn = this.id.split("-")[1];
+    activate(presentBtn);
 
     if (input.textContent) {
-        if (prevBtn === "10") {
-            input.textContent = Number(input.textContent).toString(Number(this.id)).toUpperCase();
-        } else {
-            input.textContent = anyToDec(input.textContent, prevBtn);
-            // console.log(anyToDec(input.textContent, prevBtn));
-        }
+        let decimal = anyToDec(input.textContent, prevBtn);
+        input.textContent = Number(decimal).toString(Number(presentBtn)).toUpperCase();
     }
-    prevBtn = this.id;
+    prevBtn = presentBtn;
 });
 
-// anyToDec("110.10010", 2);
-// console.log(anyToDec("110.10010", 2));
+
+
+// Function to change from any base to base-10 number
 
 function anyToDec(i, radix) {
     let integer = parseInt(i, radix);
@@ -75,9 +80,40 @@ function anyToDec(i, radix) {
     let fraction = i.split(".")[1];
     if (fraction) {
         for (let j = 0; j < fraction.length; j++) {
-            sum += fraction[j] * Math.pow(radix, Number(`-${j+1}`));
+            let temp = fraction[j];
+            if (['A', 'B', 'C', 'D', 'E', 'F'].includes(temp))
+                temp = parseInt(temp, 16);
+            sum += temp * Math.pow(radix, Number(`-${j+1}`));
         }
     }
 
     return integer + sum;
+}
+
+
+
+// Function for arithmetic operations
+
+function calculate(operator) {
+    let base = $("input[type='radio']:checked").attr("id").split("-")[1];
+    let operands = input.textContent.split(operator);
+
+    operands = operands.map((e) => {
+        return anyToDec(e, base);
+    });
+
+    finalResult = operands[0];
+    operands.shift();
+    operands.map((e) => {
+        if (operator === "+") {
+            finalResult += e;
+        } else if (operator === "-") {
+            finalResult -= e;
+        } else if (operator === "*") {
+            finalResult *= e;
+        } else if (operator === "/") {
+            finalResult /= e;
+        }
+    });
+    input.textContent = Number(finalResult).toString(Number(base)).toUpperCase();
 }
