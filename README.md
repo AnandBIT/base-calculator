@@ -3,12 +3,13 @@
 ### **Note:** Currently, only positive numbers are allowed for any type of operations
 <br>
 
-## <u>**USAGE**</u>
+## **USAGE**<hr>
 ### This Calculator can be used for :
 * **Base Conversions** (i.e from one base/radix to another)
     * Select the base/radix of the number you're going to convert from.
     * Type the number, then select the base/radix you want your number to convert to.  
     **Hurrah!** 🎉🎉🎉<br> **Your conversion is ready and is served before you.**
+    <br><br><br>
 * **Arithmetic operations** with your preferred base
     * **Important points :**
         * Note that there is limitation of only one type of operator allowed in the arithmetic operation in a given expression.
